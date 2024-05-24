@@ -12,7 +12,7 @@ export const useGetAccounts = () => {
         throw new Error('Failed to fetch accounts')
       }
 
-      const data = await res.json()
+      const { data } = await res.json()
       return data
     }
   })

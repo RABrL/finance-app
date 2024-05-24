@@ -16,8 +16,8 @@ const app = new Hono().get('/', clerkMiddleware(), async (c) => {
     .select({ id: accounts.id, name: accounts.name })
     .from(accounts)
     .where(eq(accounts.userId, auth.userId))
-    
-  return c.json(data)
+
+  return c.json({ data })
 })
 
 export default app
