@@ -1,6 +1,7 @@
-import LogoSVG from '/logo.svg'
-
-const Logo = ({ className, size }: { className?: string; size: number }) => {
+export const Logo = ({
+  className,
+  size = 32
+}: { className?: string; size?: number }) => {
   return (
     <svg
       width={size}
@@ -34,5 +35,3 @@ const Logo = ({ className, size }: { className?: string; size: number }) => {
     </svg>
   )
 }
-
-export default Logo
