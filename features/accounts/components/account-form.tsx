@@ -61,9 +61,9 @@ export const AccountForm = ({
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
-                  autoComplete='off'
+                  autoComplete="off"
                   disabled={disabled}
-                  placeholder="e.g. Cash, bank, Credit, Card"
+                  placeholder="e.g. Cash, Bank, Credit, Card"
                   {...field}
                 />
               </FormControl>
@@ -76,12 +76,12 @@ export const AccountForm = ({
         {!!id && (
           <Button
             type="button"
-            className='w-full'
+            className="w-full"
             disabled={disabled}
-            variant='outline'
+            variant="outline"
             onClick={handleDelete}
           >
-            <Trash className='size-4 mr-2' />
+            <Trash className="size-4 mr-2" />
             Delete Account
           </Button>
         )}
