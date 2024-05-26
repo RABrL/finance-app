@@ -1,10 +1,10 @@
 {
-  "id": "e3d48f0e-e8b0-476b-a01f-58d972ba9ef5",
+  "id": "7f671b62-c104-4a84-9570-f01031f132ff",
   "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "accounts": {
+    "public.accounts": {
       "name": "accounts",
       "schema": "",
       "columns": {
