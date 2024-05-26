@@ -61,6 +61,7 @@ export const AccountForm = ({
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
+                  autoComplete='off'
                   disabled={disabled}
                   placeholder="e.g. Cash, bank, Credit, Card"
                   {...field}
