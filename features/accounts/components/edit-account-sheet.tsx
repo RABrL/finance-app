@@ -27,9 +27,10 @@ type FormValues = z.infer<typeof formSchema>
 
 export const EditAccountSheet = () => {
   const { isOpen, onClose, id } = useOpenAccount()
+
   const [ConfirmDialg, confirm] = useConfirm(
     'Are you sure?',
-    'You are about to delete this transaction.'
+    'You are about to delete this account.'
   )
 
   const accountQuery = useGetAccount(id)
