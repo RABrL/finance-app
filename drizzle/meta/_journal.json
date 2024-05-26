@@ -15,6 +15,13 @@
       "when": 1716695468686,
       "tag": "0001_reflective_shadow_king",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1716698444822,
+      "tag": "0002_freezing_synch",
+      "breakpoints": true
     }
   ]
 }
