@@ -1,4 +1,4 @@
-import type { InferRequestType, InferResponseType } from 'hono'
+import type { InferResponseType } from 'hono'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
