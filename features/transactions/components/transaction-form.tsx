@@ -13,7 +13,8 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel
+  FormLabel,
+  FormMessage
 } from '@/components/ui/form'
 import { DatePicker } from '@/components/date-picker'
 import { Textarea } from '@/components/ui/textarea'
@@ -70,7 +71,7 @@ export const TransactionForm = ({
     onSubmit({
       ...values,
       amount: amountInMiliunits
-    }) 
+    })
   }
 
   const handleDelete = () => {
@@ -94,6 +95,7 @@ export const TransactionForm = ({
                   disabled={disabled}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -143,6 +145,7 @@ export const TransactionForm = ({
               <FormLabel>Payee</FormLabel>
               <FormControl>
                 <Input
+                  autoComplete="off"
                   disabled={disabled}
                   placeholder="Add a payee"
                   {...field}

@@ -92,14 +92,14 @@ export const EditTransactionSheet = () => {
 
   const defaultValues: FormValues = transactionQuery.data
     ? {
+        amount: transactionQuery.data.amount.toString(),
         date: transactionQuery.data.date
           ? new Date(transactionQuery.data.date)
           : new Date(),
         categoryId: transactionQuery.data.categoryId,
-        amount: transactionQuery.data.amount.toString(),
         accountId: transactionQuery.data.accountId,
         payee: transactionQuery.data.payee,
-        notes: transactionQuery.data.notes
+        notes: transactionQuery.data.notes || ''
       }
     : {
         date: new Date(),
