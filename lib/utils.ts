@@ -20,3 +20,14 @@ export function formatCurrency(value: number) {
     minimumFractionDigits: 2
   }).format(value)
 }
+
+export const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr)
+  if (date.toString() === 'Invalid Date' || !date.valueOf()) {
+    return
+  }
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const year = date.getFullYear()
+  return `${day}/${month}/${year}`
+}
