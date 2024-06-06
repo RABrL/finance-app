@@ -1,9 +1,9 @@
 import { z } from 'zod'
 import { Hono } from 'hono'
-import { and, desc, eq, gte, lt, lte, sql, sum } from 'drizzle-orm'
 import { zValidator } from '@hono/zod-validator'
 import { clerkMiddleware, getAuth } from '@hono/clerk-auth'
 import { subDays, parse, differenceInDays } from 'date-fns'
+import { and, desc, eq, gte, lt, lte, sql, sum } from 'drizzle-orm'
 
 import { db } from '@/db/drizzle'
 import { accounts, categories, transactions } from '@/db/schema'
@@ -34,9 +34,9 @@ const app = new Hono().get(
     const startDate = from ? parse(from, 'yyyy-MM-dd', new Date()) : defaultFrom
     const endDate = to ? parse(to, 'yyyy-MM-dd', new Date()) : defaultTo
 
-    const periodLenth = differenceInDays(endDate, startDate) + 1
-    const lastPeriodStart = subDays(startDate, periodLenth)
-    const lastPeriodEnd = subDays(endDate, periodLenth)
+    const periodLength = differenceInDays(endDate, startDate) + 1
+    const lastPeriodStart = subDays(startDate, periodLength)
+    const lastPeriodEnd = subDays(endDate, periodLength)
 
     async function fetchFinancialData(
       userId: string,
@@ -74,8 +74,8 @@ const app = new Hono().get(
     )
     const [lastPeriod] = await fetchFinancialData(
       auth.userId,
-      startDate,
-      endDate
+      lastPeriodStart,
+      lastPeriodEnd
     )
 
     const incomeChange = calculatePercentageChange(
