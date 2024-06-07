@@ -86,8 +86,10 @@ export const DataCard = ({
         <p
           className={cn(
             'text-muted-foreground text-sm line-clamp-1',
-            percentageChange > 0 && 'text-emerald-500',
-            percentageChange < 0 && 'text-rose-500'
+            title === 'Expenses' && percentageChange < 0 && 'text-emerald-500',
+            title === 'Expenses' && percentageChange > 0 && 'text-rose-500',
+            title !== 'Expenses' && percentageChange > 0 && 'text-emerald-500',
+            title !== 'Expenses' && percentageChange < 0 && 'text-rose-500'
           )}
         >
           {formatPercentage(percentageChange)} from last period
