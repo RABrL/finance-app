@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
+import { Analytics } from '@vercel/analytics/react'
 
 import { QueryProvider } from '@/providers/query-provider'
 import { SheetProvider } from '@/providers/sheet-provider'
@@ -30,6 +31,7 @@ export default function RootLayout({
             <Toaster />
             {children}
           </QueryProvider>
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
