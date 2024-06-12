@@ -90,23 +90,23 @@ export const EditTransactionSheet = () => {
     }
   }
 
-  const defaultValues: FormValues = transactionQuery.data
+  const defaultValues = transactionQuery.data
     ? {
-        amount: transactionQuery.data.amount.toString(),
         date: transactionQuery.data.date
           ? new Date(transactionQuery.data.date)
           : new Date(),
-        categoryId: transactionQuery.data.categoryId,
+        amount: transactionQuery.data.amount.toString(),
+        categoryId: transactionQuery.data.categoryId ?? undefined,
         accountId: transactionQuery.data.accountId,
         payee: transactionQuery.data.payee,
         notes: transactionQuery.data.notes || ''
       }
     : {
         date: new Date(),
+        amount: '',
         categoryId: '',
         accountId: '',
         payee: '',
-        amount: '',
         notes: ''
       }
 
