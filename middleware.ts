@@ -1,17 +1,24 @@
-import { NextResponse } from 'next/server'
-
+import { type NextFetchEvent, type NextRequest, NextResponse } from 'next/server'
 import { clerkMiddleware } from '@clerk/nextjs/server'
 import { createRouteMatcher } from '@clerk/nextjs/server'
 
-const isPublicRoute = createRouteMatcher(['/sign-in', '/sign-up']);
+const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)']);
 
-export default clerkMiddleware((auth, request) => {
-  if (!isPublicRoute(request)) {
-    auth().protect()
+// Middleware personalizado
+export default function middleware(request: NextRequest, event: NextFetchEvent) {
+  // Si la ruta es /api/wa, permite el paso sin autenticación
+  if (request.nextUrl.pathname === '/api/wa') {
+    return NextResponse.next()
   }
 
-  return NextResponse.next()
-})
+  // Para otras rutas, aplica el middleware de Clerk
+  return clerkMiddleware((auth, req) => {
+    if (!isPublicRoute(req)) {
+      auth().protect()
+    }
+    return NextResponse.next()
+  })(request, event)
+}
 
 export const config = {
   matcher: ['/((?!.+.[w]+$|_next).*)', '/', '/(api|trpc)(.*)']
