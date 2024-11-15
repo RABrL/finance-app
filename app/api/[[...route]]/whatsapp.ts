@@ -6,6 +6,8 @@ import { clerkMiddleware } from '@hono/clerk-auth'
 import { WebhookMessageRequestBody } from '@/schemas/message.webhook'
 import { markAsRead, send } from '@/features/whatsapp/services/messages'
 
+import { app as langGraphApp, StateAnnotation } from '@/features/whatsapp/agents/graph'
+
 const app = new Hono()
   .get('/', async (c) => {
     try {
@@ -69,11 +71,6 @@ const app = new Hono()
         logger.info('RECEIVED MESSAGE', lastMessage)
 
         markAsRead(lastMessage.id)
-          
-        if (!('text' in lastMessage)) {
-          logger.info('NOT A TEXT MESSAGE', lastMessage)
-          return c.json(200)
-        }
 
         if (!value.contacts) {
           logger.info('NO CONTACTS ARRAY IN RECEIVED MESSAGE', value)
@@ -87,47 +84,16 @@ const app = new Hono()
         }
 
         const {
-          wa_id: phone,
-          profile: { name }
+          profile: { name },
+          wa_id: phone
         } = contact
 
-        const { data, totalCount } = await clerkClient.users.getUserList({
-          phoneNumber: [`+${phone}`]
+        const finalInvoke: typeof StateAnnotation.spec = await langGraphApp.invoke({
+          numSteps: 0,
+          inputMessage: { contact: { name, phone }, message: lastMessage }
         })
 
-        if (totalCount === 0) {
-          send({
-            messaging_product: 'whatsapp',
-            type: 'template',
-            to: phone,
-            template: {
-              name: 'register_template',
-              language: { code: 'en_US' },
-              components: [
-                {
-                  type: 'body',
-                  parameters: [{ type: 'text', text: name || '' }]
-                }
-              ]
-            }
-          })
-        }
-
-        /* send({
-          type: 'text',
-          text: { body: 'Test message' },
-          messaging_product: 'whatsapp',
-          to: phone
-        }) */
-
-        // const { thread, history } = await initThread(user.id, lastMessage)
-
-        // await processThread({
-        //   user,
-        //   thread,
-        //   history,
-        //   incoming: lastMessage
-        // })
+        console.log('finalInvoke', finalInvoke)
 
         return c.json(200)
       } catch (e) {

@@ -54,7 +54,7 @@ export async function markAsRead(wa_id: string) {
     schema: MessageUpdateStatus
   })
     .then((res) => {
-      logger.info('Message marked as read:', res)
+      logger.info('Message marked as read')
     })
     .catch((error) => {
       logger.error(
