@@ -6,27 +6,25 @@ import {
 import { clerkMiddleware } from '@clerk/nextjs/server'
 import { createRouteMatcher } from '@clerk/nextjs/server'
 
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)'])
+const isPublicRoute = createRouteMatcher([
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  '/api/wa'
+])
 
-// Middleware personalizado
-export default function middleware(
-  request: NextRequest,
-  event: NextFetchEvent
-) {
-  // Si la ruta es /api/wa, permite el paso sin autenticación
-  if (['/api/wa', '/financeapp-cover.png'].includes(request.nextUrl.pathname)) {
-    return NextResponse.next()
+export default clerkMiddleware((auth, request) => {
+  if (!isPublicRoute(request)) {
+    auth().protect()
   }
 
-  // Para otras rutas, aplica el middleware de Clerk
-  return clerkMiddleware((auth, req) => {
-    if (!isPublicRoute(req)) {
-      auth().protect()
-    }
-    return NextResponse.next()
-  })(request, event)
-}
+  return NextResponse.next()
+})
 
 export const config = {
-  matcher: ['/((?!.+.[w]+$|_next).*)', '/', '/(api|trpc)(.*)']
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)'
+  ]
 }
