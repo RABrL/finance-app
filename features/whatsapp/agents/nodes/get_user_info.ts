@@ -5,25 +5,22 @@ import { END } from '@langchain/langgraph'
 import { sendWaMessageTool } from '../tools'
 import { logger } from '@/lib/logger'
 
-export async function isRegisterPhoneNode(
+export async function getUserInfo(
   state: typeof StateAnnotation.State
 ): Promise<Partial<typeof StateAnnotation.State>> {
-  logger.info('-----Inside isRegisterPhoneNode-----')
+  logger.info('----- GET USER INFO NODE -----')
 
   const { inputMessage } = state
-  state.numSteps++
   const { contact, message } = inputMessage
   const { name, phone } = contact
-
-  if (message.type !== 'text') {
-    return { numSteps: state.numSteps }
-  }
 
   const { data, totalCount } = await clerkClient.users.getUserList({
     phoneNumber: [`+${phone}`]
   })
 
+  // If the user is not registered, send a message to register
   if (totalCount === 0) {
+    logger.info('--- SENDING REGISTER MESSAGE ---')
     await sendWaMessageTool.invoke({
       name: 'send_wa_message',
       to: phone,
@@ -54,6 +51,7 @@ export async function isRegisterPhoneNode(
     })
     return {}
   }
+  const { id } = data[0]
 
-  return { numSteps: state.numSteps }
+  return { userId: id, numSteps: state.numSteps++ }
 }
