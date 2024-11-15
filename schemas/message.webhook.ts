@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const ServerContacts = z.object({
+export const ServerContacts = z.object({
 	profile: z.object({
 		name: z.string().optional(),
 	}),
@@ -117,7 +117,7 @@ const ServerMediaObject = z.object({
 });
 
 // Audio Message
-const AudioServerMessage = BaseMessage.extend({
+export const AudioServerMessage = BaseMessage.extend({
 	type: z.literal("audio"),
 	audio: ServerMediaObject,
 });
@@ -131,7 +131,7 @@ const DocumentServerMessage = BaseMessage.extend({
 });
 
 // Image Message
-const ImageServerMessage = BaseMessage.extend({
+export const ImageServerMessage = BaseMessage.extend({
 	type: z.literal("image"),
 	image: ServerMediaObject,
 });
