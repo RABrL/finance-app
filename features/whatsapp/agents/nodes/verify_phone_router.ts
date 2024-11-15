@@ -1,14 +1,15 @@
 import { clerkClient } from '@clerk/nextjs/server'
-
-import type { StateAnnotation } from '../graph'
 import { END } from '@langchain/langgraph'
-import { sendWaMessageTool } from '../tools'
+
 import { logger } from '@/lib/logger'
 
-export async function getUserInfo(
+import { sendWaMessageTool } from '../tools'
+import type { StateAnnotation } from '../graph'
+
+export async function verifyPhoneRouter(
   state: typeof StateAnnotation.State
 ): Promise<Partial<typeof StateAnnotation.State>> {
-  logger.info('----- GET USER INFO NODE -----')
+  logger.info('----- REGISTER PHONE ROUTER -----')
 
   const { inputMessage } = state
   const { contact, message } = inputMessage
@@ -49,9 +50,9 @@ export async function getUserInfo(
         }
       }
     })
-    return {}
+    return { next: END }
   }
   const { id } = data[0]
 
-  return { userId: id, numSteps: state.numSteps++ }
+  return { userId: id, numSteps: ++state.numSteps, next: 'type_message_router' }
 }

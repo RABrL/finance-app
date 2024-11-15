@@ -2,7 +2,7 @@ import type { z } from 'zod'
 import { ChatOpenAI } from '@langchain/openai'
 import {
   Annotation,
-  END,
+  type END,
   MemorySaver,
   MessagesAnnotation,
   START,
@@ -14,11 +14,14 @@ import type {
   AudioServerMessage,
   ImageServerMessage
 } from '@/schemas/message.webhook'
-import type { TextMessage } from '@/schemas/message'
-import { logger } from '@/lib/logger'
+import { TextMessage } from '@/schemas/message'
 
-import { getUserInfo } from './nodes/get_user_info'
-import { getTypeMessage } from './nodes/get_type_message'
+import { verifyPhoneRouter } from './nodes/verify_phone_router'
+import { typeMessageRouter } from './nodes/type_message_router'
+import { textMessageNode } from './nodes/text_message_node'
+import { categoryNode } from './nodes/category_node'
+import { createTransactionNode } from './nodes/create_transaction_node'
+import { finalResponseNode } from './nodes/final_response_node'
 
 export const runtime = 'edge'
 
@@ -33,48 +36,48 @@ type InputMessageType = {
     | z.infer<typeof ImageServerMessage>
 }
 
+const outputMessageType = TextMessage.pick({ text: true, type: true })
+
 export const StateAnnotation = Annotation.Root({
   account: Annotation<string>(),
   type: Annotation<'income' | 'expense'>(),
   category: Annotation<string>(),
   userId: Annotation<string>(),
   inputMessage: Annotation<InputMessageType>(),
-  outputMessage: Annotation<z.infer<typeof TextMessage>[]>(),
+  outputMessage: Annotation<z.infer<typeof outputMessageType>>(),
   ...MessagesAnnotation.spec,
-  numSteps: Annotation<number>()
+  numSteps: Annotation<number>(),
+  next: Annotation<
+    | 'type_message_router'
+    | 'verify_phone_router'
+    | 'text_message_node'
+    | 'category_node'
+    | 'create_transaction'
+    | 'final_response_node'
+    | typeof END
+  >
 })
 
-const model = new ChatOpenAI({
+export const model = new ChatOpenAI({
   model: 'gpt-4o',
-  temperature: 0,
-  verbose: true,
+  temperature: 0.5,
   openAIApiKey: process.env.OPENAI_API_TOKEN
 })
 
-function getLastMessage(state: typeof StateAnnotation.State) {
-  const { messages } = state
-  return messages[messages.length - 1]
-}
-
-function router(
-  state: typeof StateAnnotation.State
-): 'get_type_message' | typeof END {
-  const { userId } = state
-
-  if (userId) {
-    logger.info('---- ROUTE TO GET TYPE MESSAGE NODE ----')
-    return 'get_type_message'
-  }
-
-  return END
-}
-
 const workflow = new StateGraph(StateAnnotation)
-  .addNode('get_user_info', getUserInfo)
-  .addNode('get_type_message', getTypeMessage)
-  .addConditionalEdges('get_user_info', router)
-  .addConditionalEdges('get_type_message', router)
-  .addEdge(START, 'get_user_info')
+  .addNode('verify_phone_router', verifyPhoneRouter)
+  .addNode('type_message_router', typeMessageRouter)
+  .addNode('text_message_node', textMessageNode)
+  .addNode('category_node', categoryNode)
+  .addNode('create_transaction', createTransactionNode)
+  .addNode('final_response_node', finalResponseNode)
+  .addConditionalEdges('verify_phone_router', (state) => state.next)
+  .addConditionalEdges('type_message_router', (state) => state.next)
+  .addConditionalEdges('text_message_node', (state) => state.next)
+  .addConditionalEdges('category_node', (state) => state.next)
+  .addConditionalEdges('create_transaction', (state) => state.next)
+  .addConditionalEdges('final_response_node', (state) => state.next)
+  .addEdge(START, 'verify_phone_router')
 
 // Initialize memory to persist state between graph runs
 const checkpointer = new MemorySaver()

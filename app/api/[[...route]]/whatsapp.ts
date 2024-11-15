@@ -6,7 +6,7 @@ import { clerkMiddleware } from '@hono/clerk-auth'
 import { WebhookMessageRequestBody } from '@/schemas/message.webhook'
 import { markAsRead, send } from '@/features/whatsapp/services/messages'
 
-import { app as langGraphApp, StateAnnotation } from '@/features/whatsapp/agents/graph'
+import { app as langGraphApp, type StateAnnotation } from '@/features/whatsapp/agents/graph'
 
 const app = new Hono()
   .get('/', async (c) => {
@@ -90,7 +90,7 @@ const app = new Hono()
 
         const finalInvoke: typeof StateAnnotation.spec = await langGraphApp.invoke({
           numSteps: 0,
-          inputMessage: { contact: { name, phone }, message: lastMessage }
+          inputMessage: { contact: { name, phone }, message: lastMessage },
         })
 
         console.log('finalInvoke', finalInvoke)

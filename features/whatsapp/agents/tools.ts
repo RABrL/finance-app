@@ -34,7 +34,7 @@ export const sendWaMessageTool = tool(
   },
   {
     name: 'send_wa_message',
-    description: 'Send a message to a WhatsApp contact',
+    description: 'Always respond to the user using this tool.',
     schema: z.object({
       to: z.string().describe('The phone number to send the message to.'),
       message: TextMessage.pick({ text: true, type: true })
