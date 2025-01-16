@@ -7,7 +7,7 @@ import { sendWaMessageTool } from '../tools'
 import { db } from '@/db/drizzle'
 import { accounts, categories, transactions } from '@/db/schema'
 import { eq } from 'drizzle-orm'
-import { convertAmountFromMiliunits } from '@/lib/utils'
+import { convertAmountFromMiliunits, convertAmountToMiliunits } from '@/lib/utils'
 
 export async function createTransactionNode(
   state: typeof StateAnnotation.State
@@ -39,9 +39,10 @@ export async function createTransactionNode(
   - The transaction should be associated with one user account.
   - If the user has multiple accounts, pick a random account.
   - If the user has no accounts, return a JSON with a sinle key 'question' asking for create an account for continue.
-  - Create a date in format Date with this timestamp: ${timestamp}
+  - If the user indicates a date of the movement, transform it to date time, otherwise, do nothing and return an empty string
   - Return a JSON object with a key 'transaction' with the transaction object, and a key 'summary' with a short summary of the creation. without explanations and no markdown.
   - The transaction object should have the following keys: amount, description, type, category, account, date.
+  - Answer with the language of the user message.
 
   USER MESSAGE: ${lastMessage.content}
   USER ACCOUNTS: ${data.map((account) => account.name).join(', ')}
@@ -69,7 +70,7 @@ export async function createTransactionNode(
 
   if ('transaction' in JSON.parse(res.content as string)) {
     logger.info('---- CREATING TRANSACTION ----')
-    const {transaction, summary} = JSON.parse(res.content as string)
+    const { transaction, summary } = JSON.parse(res.content as string)
     console.log('TRANSACTION: ', transaction)
 
     const [categorie] = await db
@@ -88,8 +89,8 @@ export async function createTransactionNode(
         notes: `${transaction.description}\nCreated by whatsapp`,
         accountId: data.find((account) => account.name === transaction.account)
           ?.id,
-        date: new Date(transaction.date),
-        amount: convertAmountFromMiliunits(Number(transaction.amount)),
+        date: new Date(transaction.date || Date.now()),
+        amount: convertAmountToMiliunits(Number(transaction.amount)),
         categoryId: categorie.id
       })
       .returning()

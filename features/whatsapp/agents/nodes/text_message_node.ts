@@ -20,8 +20,8 @@ export async function textMessageNode(
   const lastMessage = messages[messages.length - 1]
 
   const prompt = `You are a expert analyst in finance. You need to understand and analyze what type of movement either 'expense' or 'income' is with the user message.
-  - You are able to understand some slangs for example: 20k means 20.000, 1.5k means 1.500 etc.
-  - Only respond with 'income' or 'expense' if the user message its clear.
+  - You are able to understand some slangs for example: 20k means 20.000, 1.5k means 1.500, 1 luka means 1000, etc.
+  - Only respond with 'income' or 'expense' string if the user message its clear without quotes.
   -If you need more information you'll return a JSON object with the unique key 'question' with your question for the user. and no premable or explaination, dont use markdown.
     
   USER MESSAGE: ${lastMessage.content}`

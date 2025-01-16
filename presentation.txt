@@ -1,0 +1,77 @@
+First, I want to mention that since English isn't my strongest skill yet, I prepared this introduction beforehand to better explain my background and journey. So, if you see like i'm reading in some parts, it's because I want to make sure I'm expressing myself clearly enough.
+
+pausa de 2 s
+
+Now, my path into software development wasn't exactly what you'd expect. Im actually a mechanical engineer, and It was in my third semester when I discovered programming.
+
+It completely blew me away by how you could create anything you want just writing code.
+
+You know how sometimes you just click with something?
+That's what happened.
+
+I started building stuff for fun, learning from lots of online courses and eventually joined a bootcamp. While I really enjoyed it, it wasnt easy, i had to split my time  between the university, learning software engineering and... all the things that being a human means haha.
+
+The bootcamp really kicked things up. I ended up being part of an awesome team of five people where we built something quite interesting - a machine learning powered app that helped pediatricians calculate BMI for kids in underserved communities. It was very cool, because we had real doctors using it in their daily work. I learned a lot.
+
+I later tried a hackathon for one of the biggest healthcare foundations here in my State (the Cardiovascular Foundation). Me and my team, which was randomly formed at the beginning of the event, had to build a full app in 3 days to solve a critical problem: elder people forgetting to take their medicines, which is a really big risk factor for deadly heart attacks. At the end we didn't win, but got to second place. Not bad for our first hackathon. Plus, it was really fun.
+
+Then I got into a professional acceleration program... Have you heard of Nubank?
+
+It's the biggest neobank here in Latam, and their CEO, David Velez, created this program. Getting in wasnt easy, we had a lot of technical tests and interviews - I had to compete with over 1,000 other candidates, and only around 35 people were selected. But after getting in, it was totally worth it. It lasted around 4 months where we took courses on developing a 'founder's mindset' for tackling hard problems. We built some quite interesting projects, like a full-on email server from scratch and an AI debt collection agent that could chat with clients through WhatsApp.
+
+Annnnd that is what led me to where I am now - working as a Data Engineer at Ubits, one of Latin America's top startups.
+
+While I'm learning new skills and growing, I've realized something important: I miss being closer to product development and the customer needs. As a Data Engineer, I'm often several steps away from the actual user experience, and I really want to get back to what I truly love - building products people want. 
+
+Actually, a fun fact about me, I love building apps for myself (just like the Finance app I showcased on my previous interviews).
+
+This experience and mindset is exactly what I would like to bring to JustPaid. I love solving hard problems and getting to learn whatever skills I need to find the right solution. I've discovered that I have a good intuition for creating user-focused products - I have a strong tendency to really think about how people will use the product and which variables I can adjust to make their experience smoother and provide real value to them.
+
+Before we end... I want to be transparent about one thing - while my spoken English is still a work in progress, I'm fully committed to improving it. Over the past three months, I've been strongly focused on developing my English speaking skills on my free time, and I've really progressed. I mean, just to put it in perspective, three months ago, I wouldn't have been confident enough to have this interview in full english. So, im very sure that I have the skills and will to turn this current challenge into a strength.
+
+[Consejos de presentación:
+- Practica el discurso completo 5 veces antes de la entrevista
+- Grábate en video al menos una vez para ver tu lenguaje corporal
+- Si te trabas en alguna palabra, respira profundo y continúa con la siguiente idea
+- Mantén una botella de agua cerca
+- Si pierdes el hilo, usa la pausa para tomar agua como reset
+- No te apresures si cometes un error - es mejor ir despacio y claro que rápido y confuso]
+
+I'll help you prepare some likely questions based on your background and the context that this is a cultural fit interview with the founders. The questions will be divided into different areas they might want to explore.
+
+*Background & Motivation*
+1. "What made you decide to transition from mechanical engineering to software development?"
+2. "Why are you interested in moving from data engineering to a more product-focused role?"
+3. "What attracts you specifically to JustPaid, and why do you think you'd be a good cultural fit?"
+
+*Working Style & Values*
+1. "Can you tell us about a challenging situation you faced during the Nubank acceleration program and how you handled it?"
+2. "In your hackathon experience, how did you manage to work effectively with a randomly assigned team in such a short timeframe?"
+3. "You mentioned building apps for yourself - tell us about a time when you identified a problem and took initiative to solve it."
+
+*Growth & Learning*
+1. "How have you been managing your English language learning journey alongside your technical work?"
+2. "What's the most challenging feedback you've received in your career and how did you act on it?"
+3. "You mentioned having to balance university, bootcamp, and personal life - how do you prioritize and manage multiple commitments?"
+
+*Leadership & Collaboration*
+1. "In the pediatrician BMI app project, how did you handle disagreements within your team?"
+2. "Tell us about a time when you had to convince others to adopt your approach or idea."
+3. "How do you prefer to receive feedback, and how do you give feedback to others?"
+
+*Problem-Solving Approach*
+1. "You mentioned having good intuition for user-focused products - can you give us a specific example of how you've applied this?"
+2. "What's your approach when you encounter a problem you've never solved before?"
+3. "How do you balance moving quickly with ensuring quality in your work?"
+
+*Cultural Alignment*
+1. "What type of work environment brings out your best performance?"
+2. "How do you define success in your role?"
+3. "What aspects of company culture are most important to you?"
+
+Would you like me to:
+1. Provide suggested answers for any of these questions?
+2. Generate more questions focused on specific aspects?
+3. Share some tips for cultural fit interviews with founders?
+
+Thank you for letting me know. If possible, I'd really appreciate any updates before next Tuesday, as my current employer is waiting for my decision on a new offer. That being said, I want to emphasize how much this opportunity means to me. This role and your company are my top priority, and I’m genuinely excited about the chance to contribute to your team.
